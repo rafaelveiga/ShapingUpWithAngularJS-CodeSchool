@@ -79,6 +79,10 @@
 		};
 	});
 
+	app.controller('ReviewController', function() {
+		this.review = {};
+	});
+
 
 })();
 
