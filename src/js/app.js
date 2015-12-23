@@ -1,70 +1,17 @@
 (function(){
-	var app = angular.module('store', []);
+	var app = angular.module('store', ['store-products']);
 
-	var gems = [
-		{
-			name: "GemNameGoesHere",
-			price: 2,
-			description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, cumque!",
-			images: [
-				{
-					full: "http://lorempixel.com/250/250",
-					thumb: "http://lorempixel.com/50/50"
-				},
-				{
-					full: "http://lorempixel.com/250/250",
-					thumb: "http://lorempixel.com/50/50"
-				}
-			],
-			reviews: [
-				{
-					stars: 5,
-					body: "Lorem ipsum dolor sit amet, consectetur.",
-					author: "email@email.com"
-				},
-				{
-					stars: 2,
-					body: "Lorem ipsum dolor sit amet, consectetur.",
-					author: "emaijjl@email.com"
-				}
-			],
-			canPurchase: true,
-			soldOut: false
-		}, 
-		{
-			name: "anotherGemHere",
-			price: 3.44,
-			description: "Lorem ipsum dolor sit amet.",
-			images: [
-				{
-					full: "http://lorempixel.com/250/250",
-					thumb: "http://lorempixel.com/50/50"
-				},
-				{
-					full: "http://lorempixel.com/250/250",
-					thumb: "http://lorempixel.com/50/50"
-				}
-			],
-			reviews: [
-				{
-					stars: 99,
-					body: "Lorem ipsum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, rem.dolor sit amet, consectetur.",
-					author: "email@email.com"
-				},
-				{
-					stars: 0,
-					body: "Lorem ipsum dolor sit amet, consectetur.",
-					author: "emaijjl@email.com"
-				}
-			],
-			canPurchase: true,
-			soldOut: false
-		}
-	];
+	
 
-	app.controller('StoreController', function() {
-		this.products = gems;
-	});
+	app.controller('StoreController', [ '$http',  function($http) {
+		var store = this;
+
+		store.products = [];
+
+		$http.get('js/products.json').success(function(data) {
+			store.products = data;
+		});
+	}]);
 	
 	app.controller('PanelController', function() {
 		this.tab = 3;
@@ -87,12 +34,7 @@
 		}
 	});
 
-	app.directive('productTitle', function() {
-		return {
-			restrict: 'A',
-			templateUrl: 'product-title.html'
-		};
-	})
+	
 
 
 })();
